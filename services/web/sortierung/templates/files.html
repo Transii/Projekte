@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+{% block head_style %}
+    <link rel="stylesheet" href="{{url_for('static', filename='jsLists.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+{% endblock head_style %}
+{% block content %}    
+    <ul id="simple_list">
+        <li>
+          <i class="fa fa-folder-o" aria-hidden="true"></i>
+          <span><span class="editable" data-type="Folder" id="{{folder.id}}">{{folder.name}}</span>
+        </span> 
+          <ul>
+                {% for file in folder.files %}
+                    <li>
+                        <i class="fa fa-pdf-o" aria-hidden="true"></i>
+                        <span class="editable" data-type="File" id="{{file.id}}">{{file.alias}}</span><a href="/data/{{file.name}}" target="right_side"><i class="fa fa-link" aria-hidden="true"></i></i></a>  
+                    </li>
+                {% endfor %}
+              {% for child in folder.child %}
+              <li>
+                <i class="fa fa-folder-o" aria-hidden="true"></i>
+                  <span><span class="editable" data-type="Folder" id="{{child.id}}">{{child.name}}</span>
+                  </span> 
+                  <ul>
+                    {% for file in child.files %}
+                        <li>
+                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            <span class="editable" data-type="File" id="{{file.id}}">{{file.alias}}</span><a href="/data/{{file.name}}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
+                        </li>
+                    {% endfor %}
+                    {% for child in child.child %}
+                    <li>
+                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                        <span><span class="editable" data-type="Folder" id="{{child.id}}">{{child.name}}</span>
+                          </span>
+                        <ul>
+                          {% for file in child.files %}
+                            <li>
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                <span class="editable" data-type="File" id="{{file.id}}">{{file.alias}}</span><a href="/data/{{file.name}}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
+                            </li>
+                          {% endfor %}
+                            {% for child in child.child %}
+                            <li>
+                                <i class="fa fa-folder-o" aria-hidden="true"></i>
+                                <span><span class="editable"  data-type="Folder" id="{{child.id}}">{{child.name}}</span>
+                                  </span>
+                                <ul>
+                                {% for file in child.files %}
+                                    <li>
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        <span class="editable" data-type="File" id="{{file.id}}">{{file.alias}}</span><a href="/data/{{file.name}}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    </li>
+                                {% endfor %}
+                                {% for child in child.child %}
+                                <li>
+                                    <i class="fa fa-folder-o" aria-hidden="true"></i>
+                                    <span><span class="editable" data-type="Folder" id="{{child.id}}">{{child.name}}</span>
+                                      </span>
+                                    <ul>
+                                    {% for file in child.files %}
+                                        <li>
+                                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                            <span class="editable" data-type="File" id="{{file.id}}">{{file.alias}}</span><a href="/data/{{file.name}}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                  </ul>
+              </li>
+              {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      <span id="edit_card" class="">
+        <div class="mb-2">
+            <form id="create_folder" action="" method = "POST" enctype="multipart/form-data">
+                <input type="text" placeholder="Neuer Ordner Name" name="folder_name">
+                <input type="submit" class="btn-sm btn-success" value="Ordner erstellen">
+            </form>
+            
+        </div>
+        <div class="mb-2">
+            <form id="rename" action="" method = "POST" enctype="multipart/form-data" >
+                <input id="rename_val" class="w-25" type="text" name="folder_name">
+                <input type="submit" class="btn-sm btn-success" value="Umbenennen">
+            </form>
+            <form id="delete" action="" method ="POST" enctype="multipart/form-data" >
+                <input type="submit" class="btn-sm btn-danger" value="Löschen">
+            </form>
+            <form id="qr_print" action="" method ="POST" enctype="multipart/form-data" >
+                <input type="submit" class="btn-sm btn-warning" value="QR-Code Drucken">
+            </form>
+        </div>
+        <div>
+            <form id="upload_file" action="" method = "POST" enctype = "multipart/form-data">
+                <div class="custom-file w-75">
+                    <input class="custom-file" id="file_upload" type="file" name="file" multiple=""/>
+                    <label class="custom-file-label" for="file_upload">Datei wählen</label>
+                    
+                </div>
+                <input type="submit" class="btn-sm btn-primary">
+            </form>
+        </div>
+        <button id="close_card" type="button" class="close"> 
+            <span>×</span> 
+            </button>
+    </span>
+    <iframe id="right_side" style="-webkit-transform:scale(0.5);-moz-transform-scale(0.5);"></iframe>
+{% endblock content %}
+{% block card %}{% endblock card %}
+{% block footer %}
+<script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('static', filename='jsLists.js')}}"></script>
+<script>JSLists.applyToList('simple_list', 'ALL');</script>
+{% endblock footer %}
+

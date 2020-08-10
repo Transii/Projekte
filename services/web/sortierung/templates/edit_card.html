@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content%}
+<span id="edit_card" class="open">
+    <div class="mb-2">
+        <form action = "/folder?id=" method = "POST" enctype="multipart/form-data">
+            <input type="text" placeholder="Neuer Ordner Name" name="folder_name">
+            <input type="submit" class="btn-sm btn-success" value="Ordner erstellen">
+        </form>
+        
+    </div>
+    <div class="mb-2">
+        <form action = "/folder?id=" method = "POST" enctype="multipart/form-data" >
+            <input class="w-25" type="text" name="folder_name">
+            <input type="submit" class="btn-sm btn-success" value="Umbenennen">
+        </form>
+        <form action = "/folder?id=&del=True&type=" metho ="POST" enctype="multipart/form-data" >
+            <input type="submit" class="btn-sm btn-danger" value="Löschen">
+        </form>
+    </div>
+    <div>
+        <form action = "/uploader?id=" method = "POST" enctype = "multipart/form-data">
+            <div class="custom-file w-75">
+                <input class="custom-file" id="file_upload" type="file" name="file" multiple=""/>
+                <label class="custom-file-label" for="file_upload">Datei wählen</label>
+                
+            </div>
+            <input type="submit" class="btn-sm btn-primary">
+        </form>
+    </div>
+    
+</span>
+{% endblock %}

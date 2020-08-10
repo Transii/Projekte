@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="{{url_for('static', filename='qr-code.css')}}">
+<script src="{{url_for('static', filename='qrcode.js')}}"></script>
+
+<div class="a4-page">
+    {% for i in range(24) %}
+        <div id="{{loop.index}}" class="etikett">
+        </div>
+    {% endfor %}
+</div>
+<button id="next">Vor</button>
+<button id="previous">Zurück</button>
+<script>
+    var start_id = 1
+    var htmlinsert = `
+            <div class="qr-info">Datei Name: </br>{{file.alias}}</div>
+            <div id="single_qr" class="etikett-qr"></div>
+            `
+    document.getElementById("1").innerHTML=htmlinsert;
+
+    new QRCode(document.getElementById("single_qr"),{
+        text: "http://10.20.30.14/data/{{file.name}}",
+        width: 120,
+        height: 120,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    document.getElementById("next").onclick = function(){
+        console.log(start_id)
+        document.getElementById(`${start_id+1}`).innerHTML=document.getElementById(`${start_id}`).innerHTML;
+        document.getElementById(`${start_id}`).innerHTML='';
+        start_id = start_id+1;
+    };
+    document.getElementById("previous").onclick = function(){
+        console.log(start_id)
+        document.getElementById(`${start_id-1}`).innerHTML=document.getElementById(`${start_id}`).innerHTML;
+        document.getElementById(`${start_id}`).innerHTML='';
+        start_id = start_id-1;
+    };
+            
+</script>

@@ -1,0 +1,42 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.a4-page{
+    width: 210mm;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.etikett{
+    height:37.4mm;
+    width:68mm;
+    margin-left:1.5mm;
+    background-color: darkgray;
+}
+
+.etikett-qr{
+    margin-top: 2.5mm;
+    float:right;
+    
+}
+
+.qr-info{
+    
+    display: inline-block;
+    word-wrap: break-word;
+    width:30mm;
+}
+
+.selectionBtn{
+    display:inline-block;
+}
+
+@page 
+    {
+        size:  auto;   /* auto is the initial value */
+        margin: 0mm;  /* this affects the margin in the printer settings */
+    }

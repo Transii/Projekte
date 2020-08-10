@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  web:
+    build: ./web
+    image: transii/dokument_sortierung:web_1.0
+    command: gunicorn --bind 0.0.0.0:5000 --chdir /home/app/web sortierung.main_app:app
+    volumes:
+      - static_volume:/home/app/web/sortierung/static
+      - upload_volume:/home/app/web/sortierung/uploads
+      - database_volume:/home/app/web/sortierung/database
+    expose:
+      - 5000
+    restart: always
+  nginx:
+    build: ./nginx
+    image: transii/dokument_sortierung:nginx_v1.0
+    volumes:
+      - static_volume:/home/app/web/sortierung/static
+      - upload_volume:/home/app/web/sortierung/uploads
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - web
+
+volumes:
+    static_volume:
+    upload_volume:
+    database_volume:
+
