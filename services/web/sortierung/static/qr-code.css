@@ -1,4 +1,6 @@
 *{
+    font-size: 8pt;
+    font-family: sans-serif;
     margin:0;
     padding:0;
 }
@@ -12,31 +14,44 @@
 }
 
 .etikett{
-    height:37.4mm;
-    width:68mm;
-    margin-left:1.5mm;
-    background-color: darkgray;
+    position: relative;
+    height:35mm;
+    width:70mm;
 }
 
 .etikett-qr{
+    margin-right: 4mm;
     margin-top: 2.5mm;
-    float:right;
-    
+    position: absolute;
+    top:0;
+    right:0;
 }
 
 .qr-info{
-    
+    margin-left: 4mm;
+    margin-top: 2.5mm;
     display: inline-block;
     word-wrap: break-word;
-    width:30mm;
+    width: 24mm;
 }
 
 .selectionBtn{
     display:inline-block;
 }
 
-@page 
-    {
-        size:  auto;   /* auto is the initial value */
-        margin: 0mm;  /* this affects the margin in the printer settings */
+@media print {
+    @page{
+        size:  auto;
+        margin: 0mm;
+        size:A4 portrait;
+        margin-top:8.5mm;
+        margin-bottom: 8.5mm;
+    }
+    body{
+        
+        
+    }
+    .selectionBtn{
+        display:none;
+    }
     }

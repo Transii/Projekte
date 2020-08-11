@@ -7,20 +7,20 @@
         </div>
     {% endfor %}
 </div>
-<button id="next">Vor</button>
-<button id="previous">Zurück</button>
+<button class="selectionBtn" id="next">Vor</button>
+<button class="selectionBtn" id="previous">Zurück</button>
 <script>
     var start_id = 1
     var htmlinsert = `
-            <div class="qr-info">Datei Name: </br>{{file.alias}}</div>
+            <div class="qr-info"><u>Datei Name: </u></br><b>{{file.alias}}</b> </br> <u>Ordner Name:</u></br><b>{{file.folder.name}}</b></div>
             <div id="single_qr" class="etikett-qr"></div>
             `
     document.getElementById("1").innerHTML=htmlinsert;
 
     new QRCode(document.getElementById("single_qr"),{
         text: "http://10.20.30.14/data/{{file.name}}",
-        width: 120,
-        height: 120,
+        width: 110,
+        height: 110,
         colorDark : "#000000",
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H

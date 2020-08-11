@@ -3,13 +3,13 @@
 <div class="a4-page">
     {% for file in files %}
         <div id="{{loop.index}}" class="etikett">
-            <div class="qr-info">Datei Name: </br>{{file.alias}}</div>
+            <div class="qr-info"><u>Datei Name: </u></br><b>{{file.alias}}</b> </br> <u>Ordner Name:</u></br><b>{{file.folder.name}}</b></div>
             <div id="{{loop.index}}{{file.id}}" class="etikett-qr"></div>
             <script type="text/javascript">
                 new QRCode(document.getElementById("{{loop.index}}{{file.id}}"),{
                     text: "http://10.20.30.14/data/{{file.name}}",
-                    width: 120,
-                    height: 120,
+                    width: 110,
+                    height: 110,
                     colorDark : "#000000",
                     colorLight : "#ffffff",
                     correctLevel : QRCode.CorrectLevel.H
